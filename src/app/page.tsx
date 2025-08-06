@@ -35,7 +35,7 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-3xl font-bold text-gray-900">InnovateHub</div>
+            <div className="text-3xl font-bold text-gray-900">CEID</div>
             <div className="hidden md:flex space-x-10">
               <a href="#home" className="text-gray-600 hover:text-blue-700 transition-colors duration-300">Home</a>
               <a href="#workspace" className="text-gray-600 hover:text-blue-700 transition-colors duration-300">Workspace</a>
@@ -200,7 +200,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-6xl font-extrabold text-gray-900 mb-6">Ready to Build?</h2>
           <p className="text-xl mb-10 text-gray-600">
-            Apply now to secure your spot at InnovateHub and start your journey.
+            Apply now to secure your spot at CEID and start your journey.
           </p>
           <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-110 shadow-lg">
             Apply Now
@@ -220,7 +220,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-12">
             <div>
-              <div className="text-3xl font-bold mb-4">InnovateHub</div>
+              <div className="text-3xl font-bold mb-4">CEID</div>
               <p className="text-gray-400">The premier workspace for the next generation of builders.</p>
             </div>
             <div>
@@ -244,7 +244,7 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-bold mb-4">Connect</h3>
               <ul className="space-y-3 text-gray-400">
-                <li>hello@innovatehub.io</li>
+                <li>hello@ceid.org</li>
                 <li>(555) 987-6543</li>
                 <li>123 Innovation Drive</li>
                 <li>Austin, TX 78701</li>
@@ -252,7 +252,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-16 pt-8 text-center text-gray-500">
-            <p>&copy; 2025 InnovateHub. All rights reserved.</p>
+            <p>&copy; 2025 CEID. All rights reserved.</p>
           </div>
         </div>
       </footer>
