@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
 const SECTIONS = [
-  { id: 1, title: 'Welcome', folder: '1', imageCount: 3 },
+  { id: 1, title: 'Blount Centre', folder: '1', imageCount: 7 },
   { id: 2, title: 'Events', folder: '2', imageCount: 2 },
-  { id: 3, title: 'Offices', folder: '3', imageCount: 2 },
+  { id: 3, title: 'Offices', folder: '3', imageCount: 6 },
   { id: 4, title: 'Mentors', folder: '4', imageCount: 2 },
-   { id: 5, title: 'Calendar', folder: '5', imageCount: 3 },
-  { id: 6, title: 'Conference', folder: '6', imageCount: 3 },
+  { id: 5, title: 'Calendar', folder: '5', imageCount: 3 },
+  { id: 6, title: 'Conference', folder: '6', imageCount: 6 },
 ];
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 
   const [currentImage, setCurrentImage] = useState('');
   const [prevImage, setPrevImage] = useState('');
-  const [fadeKey, setFadeKey] = useState(0); // triggers fade animation
+  const [fadeKey, setFadeKey] = useState(0);
 
   // Detect visible section
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function Home() {
             const index = sectionRefs.current.findIndex((ref) => ref === entry.target);
             if (index !== -1) {
               setActiveSectionIndex(index);
-              setImageIndex(0); // Reset image when section changes
+              setImageIndex(0);
             }
           }
         });
@@ -42,22 +42,36 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  // Set initial image and prevImage to avoid blink
+  useEffect(() => {
+    const initialImage = `/images/${SECTIONS[0].folder}/1.jpg`;
+    setCurrentImage(initialImage);
+    setPrevImage(initialImage);
+  }, []);
+
   // Cycle images in active section
   useEffect(() => {
     const imageCount = SECTIONS[activeSectionIndex].imageCount;
+    const isFirstFirst = activeSectionIndex === 0 && imageIndex === 0;
+    const delay = isFirstFirst ? 5000 : 6000;
+
     const interval = setInterval(() => {
       setImageIndex((prev) => (prev + 1) % imageCount);
-    }, 10000);
+    }, delay);
+
     return () => clearInterval(interval);
-  }, [activeSectionIndex]);
+  }, [activeSectionIndex, imageIndex]);
 
   // Update current image with fade
   useEffect(() => {
+    if (!currentImage) return;
     const newImage = `/images/${SECTIONS[activeSectionIndex].folder}/${imageIndex + 1}.jpg`;
-    setPrevImage(currentImage); // Store old image
-    setCurrentImage(newImage);  // Store new image
-    setFadeKey((k) => k + 1);   // Trigger animation
+    setPrevImage(currentImage);
+    setCurrentImage(newImage);
+    setFadeKey((k) => k + 1);
   }, [activeSectionIndex, imageIndex]);
+
+  const isFirstFirst = activeSectionIndex === 0 && imageIndex === 0;
 
   return (
     <>
@@ -65,19 +79,40 @@ export default function Home() {
 
       <main style={{ paddingTop: '10vh' }}>
         {/* Background Layers */}
-        <div className="background-container">
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 0,
+            overflow: 'hidden',
+          }}
+        >
           {prevImage && (
             <div
               key={`prev-${fadeKey}`}
-              className="bg-layer fade-out"
-              style={{ backgroundImage: `url(${prevImage})` }}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `url(${prevImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                opacity: 1,
+                animation: `fadeOut 6.5s ease forwards`,
+              }}
             />
           )}
           {currentImage && (
             <div
               key={`curr-${fadeKey}`}
-              className="bg-layer fade-in"
-              style={{ backgroundImage: `url(${currentImage})` }}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `url(${currentImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                opacity: isFirstFirst ? 1 : 0,
+                animation: isFirstFirst ? 'none' : `fadeIn 6.5s ease forwards`,
+              }}
             />
           )}
         </div>
@@ -87,6 +122,7 @@ export default function Home() {
             key={section.id}
             ref={(el) => void (sectionRefs.current[i] = el)}
             style={{
+             
               height: '100vh',
               display: 'flex',
               alignItems: 'center',
@@ -111,26 +147,8 @@ export default function Home() {
         ))}
       </main>
 
+      {/* Inline animations */}
       <style jsx>{`
-        .background-container {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          
-          overflow: hidden;
-        }
-        .bg-layer {
-          position: absolute;
-          inset: 0;
-          background-size: cover;
-          background-position: center;
-        }
-        .fade-in {
-          animation: fadeIn 2s ease forwards;
-        }
-        .fade-out {
-          animation: fadeOut 2s ease forwards;
-        }
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
