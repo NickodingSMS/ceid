@@ -78,7 +78,7 @@ export default function Home() {
     <>
       <header className="topbar">CIED</header>
 
-      <main style={{ paddingTop: '10vh' }}>
+      <main style={{  }}>
         {/* Background Layers */}
         <div
           style={{

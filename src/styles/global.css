@@ -7,14 +7,16 @@ body, html {
   color: white;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  
 }
 
 .topbar {
+  
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 10vh;
+  height: 6vh;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: saturate(180%) blur(8px);
   -webkit-backdrop-filter: saturate(180%) blur(8px);
@@ -30,7 +32,7 @@ body, html {
 
 /* Container below topbar */
 main {
-  
+  margin-top: "0vh",
 }
 
 /* Section Styles */
@@ -70,4 +72,78 @@ main {
   font-weight: bold;
   backdrop-filter: blur(6px);
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+
+
+.react-calendar {
+  width: 100vw !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 1rem !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.react-calendar__tile {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 12px !important;
+  border: 1px solid #ccc !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+  transition: all 0.2s ease !important;
+  padding: 1.25rem 0.5rem !important;
+  color: black !important;
+  font-size: 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 80px !important;
+}
+
+/* Active day highlight */
+.react-calendar__tile--active {
+  background: #0096ff !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  border-color: #0096ff !important;
+}
+
+/* Current day */
+.react-calendar__tile--now {
+  border: 2px solid #0096ff !important;
+  background: rgba(0, 150, 255, 0.08) !important;
+}
+
+/* Event dot still works inside card */
+.calendar-event-day::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: #ff9800;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 768px) {
+  .react-calendar {
+    padding: 0 !important;
+  }
+
+  .react-calendar__tile {
+    padding: 0.75rem 0.25rem !important;
+    min-height: 60px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .react-calendar__tile {
+    padding: 0.5rem 0.25rem !important;
+    min-height: 50px !important;
+    font-size: 0.75rem !important;
+  }
 }
