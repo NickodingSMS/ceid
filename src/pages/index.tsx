@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 const SECTIONS = [
   { id: 1, title: 'Blount Centre', folder: '1', imageCount: 7 },
@@ -117,20 +118,8 @@ export default function Home() {
           )}
         </div>
 
-        {SECTIONS.map((section, i) => (
-          <section
-            key={section.id}
-            ref={(el) => void (sectionRefs.current[i] = el)}
-            style={{
-             
-              height: '100vh',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-              zIndex: 1,
-            }}
-          >
+        {SECTIONS.map((section, i) => {
+          const sectionContent = (
             <div
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.8)',
@@ -139,12 +128,36 @@ export default function Home() {
                 color: 'black',
                 fontSize: '2rem',
                 fontWeight: 'bold',
+                cursor: section.id === 5 ? 'pointer' : 'default',
               }}
             >
               {section.title}
             </div>
-          </section>
-        ))}
+          );
+
+          return (
+            <section
+              key={section.id}
+              ref={(el) => void (sectionRefs.current[i] = el)}
+              style={{
+                height: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                zIndex: 1,
+              }}
+            >
+              {section.id === 5 ? (
+                <Link href="/calendar" style={{ textDecoration: 'none' }}>
+                  {sectionContent}
+                </Link>
+              ) : (
+                sectionContent
+              )}
+            </section>
+          );
+        })}
       </main>
 
       {/* Inline animations */}
